@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -35,6 +36,20 @@ public class GreetingController {
 
         return "main";
     }
+
+    @PostMapping("filter")
+    public String filter(@RequestParam String filter,
+                         Map<String, Object> model) {
+        Iterable<Message> messages; //Общий знаменатель для List and Iterable
+        if (filter != null && !filter.isEmpty()) {
+            messages = messageRepo.findByTag(filter); //Возвращает List
+        } else {
+            messages = messageRepo.findAll(); //Возвращает Iterable
+        }
+        model.put("messages", messages);
+        return "main";
+    }
+
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name,
