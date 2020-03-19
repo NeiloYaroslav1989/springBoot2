@@ -5,6 +5,28 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p>Get your greeting <a href="/greeting">here</a></p>
+    <p>Get your greeting <a href="/greeting">here</a></p>
+    <br>
+
+    <div>
+        <form method="post">
+            <input type="text" name="text" placeholder="Введите текст сообщения">
+            <input type="text" name="tag" placeholder="Тэг">
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+
+
+
+
+    <p>Список сообщений:</p>
+    {{#messages}}
+        <div>
+        <b>{{id}}</b>
+        <span>{{text}}</span>
+        <i>{{tag}}</i>
+    </div>
+    {{/messages}}
+
 </body>
 </html>
