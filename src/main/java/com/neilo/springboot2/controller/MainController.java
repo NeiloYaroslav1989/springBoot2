@@ -1,4 +1,4 @@
-package com.neilo.springboot2;
+package com.neilo.springboot2.controller;
 
 import com.neilo.springboot2.dao.Message;
 import com.neilo.springboot2.repositories.MessageRepo;
@@ -12,19 +12,25 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class GreetingController {
+public class MainController {
 
     @Autowired
     private MessageRepo messageRepo;
 
-    @GetMapping
+    @GetMapping("/")
+    public String index(Map<String, Object> model) {
+        return "index";
+    }
+
+
+    @GetMapping("/main")
     public String main(Map<String, Object> model) {
         Iterable<Message> messages = messageRepo.findAll();
         model.put("messages", messages);
         return "main";
     }
 
-    @PostMapping
+    @PostMapping("message")
     public String add(@RequestParam(name="text", required = false, defaultValue = "Empty message") String text,
                       @RequestParam(name="tag", required = false, defaultValue = "Empty tag") String tag,
                       Map<String, Object> model) {
