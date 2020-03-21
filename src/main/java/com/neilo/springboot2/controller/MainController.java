@@ -1,8 +1,10 @@
 package com.neilo.springboot2.controller;
 
 import com.neilo.springboot2.dao.Message;
+import com.neilo.springboot2.dao.User;
 import com.neilo.springboot2.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,10 +33,12 @@ public class MainController {
     }
 
     @PostMapping("message")
-    public String add(@RequestParam(name="text", required = false, defaultValue = "Empty message") String text,
-                      @RequestParam(name="tag", required = false, defaultValue = "Empty tag") String tag,
-                      Map<String, Object> model) {
-        Message message = new Message(text, tag);
+    public String add(
+            @AuthenticationPrincipal User user,
+            @RequestParam(name="text", required = false, defaultValue = "Empty message") String text,
+            @RequestParam(name="tag", required = false, defaultValue = "Empty tag") String tag,
+            Map<String, Object> model) {
+        Message message = new Message(text, tag, user);
         messageRepo.save(message);
 
         Iterable<Message> messages = messageRepo.findAll();

@@ -11,6 +11,7 @@
         <input type="submit" value="Sign Out"/>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
     </form>
+    <br>
     <div>
         <form method="post" action="message">
             <input type="text" name="text" placeholder="Введите текст сообщения">
@@ -31,6 +32,7 @@
             <b>{{id}}</b>
             <span>{{text}}</span>
             <i>{{tag}}</i>
+            <strong>{{authorName}}</strong>
         </div>
     {{/messages}}
 
