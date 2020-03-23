@@ -17,7 +17,8 @@ public class registrationController {
     private UserRepo userRepo;
 
     @GetMapping("/registration")
-    public String registration() {
+    public String registration(Map<String, Object> model) {
+        model.put("message", "Please, input login and password for creating a new user:");
         return "registration";
     }
 
@@ -33,6 +34,6 @@ public class registrationController {
         user.setRoles(Collections.singleton(Role.USER));
         userRepo.save(user);
 
-        return "redirect:/login";
+        return "redirect:/main";
     }
 }
