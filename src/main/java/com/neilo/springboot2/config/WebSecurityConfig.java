@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //Включаем авторизацию
                 .authorizeRequests()
                     //Разрешаем всем доступ к главной страничке
-                    .antMatchers("/", "/registration", "/static/**").permitAll()
+                    .antMatchers("/", "/registration", "/static/**", "/activate/*").permitAll()
                     //Для других страниц требуем авторизацию
                     .anyRequest().authenticated()
                 .and()
