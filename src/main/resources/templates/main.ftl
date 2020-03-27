@@ -12,11 +12,23 @@
     <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
         Add new message
     </a>
-    <div class="collapse" id="collapseExample">
+    <div class="collapse <#if message??>show</#if>" id="collapseExample">
         <div class="form-group">
             <form method="post" action="message" enctype="multipart/form-data">
-                <input type="text" name="text" class="form-control mt-2" placeholder="Введите текст сообщения">
-                <input type="text" name="tag" class="form-control mt-2" placeholder="Тэг">
+                <input type="text" name="text" class="form-control mt-2 ${(textError??)?string('is-invalid', '')}"
+                       placeholder="Введите сообщение" value="<#if message??>${message.text}</#if>" >
+                <#if textError??>
+                    <div class="invalid-feedback">
+                        ${textError}
+                    </div>
+                </#if>
+                <input type="text" name="tag" class="form-control mt-2" placeholder="Тэг"
+                       value="<#if message??>${message.text}</#if>">
+                <#if tagError??>
+                    <div class="invalid-feedback">
+                        ${tagError}
+                    </div>
+                </#if>
                 <div class="custom-file mt-2">
                     <input type="file" name="file" id="customFile">
                     <label class="custom-file-label" for="customFile">Choose file</label>
